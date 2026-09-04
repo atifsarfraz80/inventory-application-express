@@ -1,0 +1,27 @@
+{
+  "name": "inventory-application-express",
+  "version": "1.0.0",
+  "description": "making a simple inventory application in express",
+  "homepage": "https://github.com/atifsarfraz80/inventory-application-express#readme",
+  "bugs": {
+    "url": "https://github.com/atifsarfraz80/inventory-application-express/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atifsarfraz80/inventory-application-express.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.23.0"
+  }
+}
