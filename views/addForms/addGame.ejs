@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a new Game</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page-container">
+      <div class="form-card">
+        <h1 class="form-title">Add a new Game</h1>
+
+        <% if (errors && errors.length > 0) { %>
+          <div class="error-box">
+            <ul>
+              <% errors.forEach(err => { %>
+                <li><%= err.msg %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <form method="POST" action="/games/new" class="game-form">
+          <div class="form-group">
+            <label for="title" class="form-label">Game Title</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="form-input"
+              value="<%= formData?.title || '' %>"
+              placeholder="e.g. GTA V"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="rating" class="form-label">Rating</label>
+            <input
+              type="number"
+              name="rating"
+              id="rating"
+              class="form-input"
+              value="<%= formData?.rating || '' %>"
+              placeholder="e.g. 8.5"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              class="form-textarea"
+              rows="5"
+              placeholder="Write your Description here..."
+              required
+            ><%= formData?.description || '' %></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Add game</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

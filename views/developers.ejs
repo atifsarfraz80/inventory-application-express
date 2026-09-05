@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Developers</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+    <main class="developers-container">
+        <a href="/developers/new" class="create-btn">Add a Developer</a>
+      <h1 class="page-title"><%= title %></h1>
+      <div class="all-developers">
+        <ul class="developers-list">
+            <%developers.map((developer)=> { %>
+                <li class="developer-item"><%=developer.name%></li>
+                <a href="/developers/<%=developer.name%>/<%=developer.id%>" class="btn">Show Games</a>
+                <a href="/developers/delete/<%=developer.id%>">Delete This Developer</a>
+            <%})%>
+        </ul>
+      </div>
+      <div class="links">
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+        <a href="/genres" class="btn btn-primary">View Genres</a>
+        <a href="/games" class="btn btn-primary">View Games</a>
+      </div>
+    </main>
+  </body>
+</html>

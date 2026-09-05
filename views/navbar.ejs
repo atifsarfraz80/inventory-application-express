@@ -1,0 +1,14 @@
+<header class="navbar-header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/">Game Info Application</a>
+    </div>
+    <ul class="navbar-links">
+      <% for (let i = 0; i < links.length; i++) { %>
+        <li class="navbar-item">
+          <a class="nav-link" href="<%= links[i].href %>"><%= links[i].text %></a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

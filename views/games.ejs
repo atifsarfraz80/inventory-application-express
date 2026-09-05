@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Games</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+    <main class="games-container">
+    <a href="/games/new" class="create-btn">Add a Game</a>
+      <h1 class="page-title"><%= title %></h1>
+      <div class="all-games">
+        <ul class="games-list">
+            <%games.map((game)=> { %>
+                <li class="game-item">
+                    <div class="game-title"><%=game.title%></div>
+                    <div class="game-rating">Rating: <%=game.rating%></div>
+                    <div class="game-description"><%=game.description%></div>
+                </li>
+                <a href="/games/delete/<%=game.id%>">Delete This Game</a>
+            <%})%>
+        </ul>
+      </div>
+      <div class="links">
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+        <a href="/developers" class="btn btn-primary">View Developers</a>
+        <a href="/genres" class="btn btn-primary">View Genres</a>
+      </div>
+    </main>
+  </body>
+</html>

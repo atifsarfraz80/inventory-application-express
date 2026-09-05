@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a new Developer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page-container">
+      <div class="form-card">
+        <h1 class="form-title">Add a new Developer</h1>
+
+        <% if (errors && errors.length > 0) { %>
+          <div class="error-box">
+            <ul>
+              <% errors.forEach(err => { %>
+                <li><%= err.msg %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <form method="POST" action="/developers/new" class="game-form">
+          <div class="form-group">
+            <label for="name" class="form-label">Developer Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-input"
+              value="<%= formData?.name || '' %>"
+              placeholder="e.g. Rockstar Games"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Add Developer</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
