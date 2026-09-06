@@ -7,7 +7,7 @@ import { insertGenre } from "../db/queries.js";
 genreRouter.get("/genres", genreController);
 
 genreRouter.get("/genres/new", (req, res) => {
-  res.render("addForms/addGenre", { errors: [], formData: {} });
+  res.render("Forms/Genre", { errors: [], formData: {} });
 });
 genreRouter.post("/genres/new", async (req, res, next) => {
   try {

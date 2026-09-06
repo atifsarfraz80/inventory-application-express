@@ -10,7 +10,7 @@ gameRouter.get("/games", gameController);
 gameRouter.get("/games/new", async (req, res) => {
   const developers = await getAllDevelopers();
   const genres = await getAllGenres();
-  res.render("addForms/addGame", {
+  res.render("Forms/Game", {
     errors: [],
     formData: {},
     developers,

@@ -19,6 +19,7 @@
                     <div class="game-rating">Rating: <%=game.rating%></div>
                     <div class="game-description"><%=game.description%></div>
                 </li>
+                <a href="/games/edit/<%=game.id%>">Edit This Game</a>
                 <a href="/games/delete/<%=game.id%>">Delete This Game</a>
             <%})%>
         </ul>

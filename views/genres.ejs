@@ -16,6 +16,7 @@
             <%genres.map((genre)=> { %>
                 <li class="genre-item"><%=genre.name%></li>
                 <a href="/genres/<%=genre.name%>/<%=genre.id%>" class="btn">Show Games</a>
+                <a href="/genres/edit/<%=genre.id%>">Edit This Genre</a>
                 <a href="/genres/delete/<%=genre.id%>">Delete This Genre</a>
             <%})%>
 

@@ -86,3 +86,61 @@ export async function deleteDeveloper(id) {
 export async function deleteGenre(id) {
   await pool.query(`DELETE FROM genres WHERE genres.id = ${id}`);
 }
+
+export async function editGame(
+  id,
+  title,
+  rating,
+  description,
+  genres,
+  developers,
+) {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    await client.query(
+      `UPDATE games SET title = $1, rating = $2, description = $3 WHERE id = $4`,
+      [title, rating, description, id],
+    );
+
+    await client.query(`DELETE FROM game_genres WHERE game_id = $1`, [id]);
+    await client.query(`DELETE FROM game_developers WHERE game_id = $1`, [id]);
+
+    if (genres) {
+      const genreArray = Array.isArray(genres) ? genres : [genres];
+      for (const genreId of genreArray) {
+        await client.query(
+          `INSERT INTO game_genres (game_id, genre_id) VALUES ($1, $2)`,
+          [id, genreId],
+        );
+      }
+    }
+
+    if (developers) {
+      const devArray = Array.isArray(developers) ? developers : [developers];
+      for (const devId of devArray) {
+        await client.query(
+          `INSERT INTO game_developers (game_id, developer_id) VALUES ($1, $2)`,
+          [id, devId],
+        );
+      }
+    }
+
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+export async function editDeveloper(id, name) {
+  await pool.query(`UPDATE developers SET name = $1 WHERE id = $2`, [name, id]);
+}
+
+export async function editGenre(id, name) {
+  await pool.query(`UPDATE genres SET name = $1 WHERE id = $2`, [name, id]);
+}
