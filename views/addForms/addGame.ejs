@@ -57,6 +57,23 @@
               required
             ><%= formData?.description || '' %></textarea>
           </div>
+
+          <label for="genres">Genres (Hold Ctrl/Cmd to select multiple):</label>
+            <select id="genres" name="genres" multiple required>
+              <% genres.forEach(genre => { %>
+                <option value="<%= genre.id %>"><%= genre.name %></option>
+              <% }) %>
+            </select>
+          <small>Don't see your genre? <a href="/genres/new" target="_blank">Create it here first</a>.</small>
+
+          <label for="developers">Developers (Hold Ctrl/Cmd to select multiple):</label>
+            <select id="developers" name="developers" multiple required>
+              <% developers.forEach(dev => { %>
+                <option value="<%= dev.id %>"><%= dev.name %></option>
+              <% }) %>
+            </select>
+          <small>Don't see the developer? <a href="/developers/new" target="_blank">Create them here first</a>.</small>
+
           <button type="submit" class="btn btn-primary btn-block">Add game</button>
         </form>
       </div>

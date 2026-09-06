@@ -3,10 +3,19 @@ const gameRouter = Router();
 import gameController from "../controllers/gameController.js";
 import { insertGame } from "../db/queries.js";
 import { deleteGame } from "../db/queries.js";
+import { getAllDevelopers } from "../db/queries.js";
+import { getAllGenres } from "../db/queries.js";
 
 gameRouter.get("/games", gameController);
-gameRouter.get("/games/new", (req, res) => {
-  res.render("addForms/addGame", { errors: [], formData: {} });
+gameRouter.get("/games/new", async (req, res) => {
+  const developers = await getAllDevelopers();
+  const genres = await getAllGenres();
+  res.render("addForms/addGame", {
+    errors: [],
+    formData: {},
+    developers,
+    genres,
+  });
 });
 
 gameRouter.get("/games/delete/:id", async (req, res) => {
@@ -17,7 +26,13 @@ gameRouter.get("/games/delete/:id", async (req, res) => {
 
 gameRouter.post("/games/new", async (req, res, next) => {
   try {
-    await insertGame(req.body.title, req.body.rating, req.body.description);
+    await insertGame(
+      req.body.title,
+      req.body.rating,
+      req.body.description,
+      req.body.genres,
+      req.body.developers,
+    );
     res.redirect("/games");
   } catch (err) {
     next(err);

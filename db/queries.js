@@ -33,11 +33,38 @@ where gd.developer_id = ${id}`);
   return rows;
 }
 
-export async function insertGame(title, rating, description) {
-  await pool.query(
-    "INSERT INTO games (title, rating,description) VALUES ($1, $2,$3)",
+export async function insertGame(
+  title,
+  rating,
+  description,
+  genres,
+  developers,
+) {
+  const gameResult = await pool.query(
+    "INSERT INTO games (title, rating,description) VALUES ($1, $2,$3) RETURNING id",
     [title, rating, description],
   );
+  const gameId = gameResult.rows[0].id;
+
+  if (genres) {
+    const genreArray = Array.isArray(genres) ? genres : [genres];
+    for (let genreId of genreArray) {
+      await pool.query(
+        "INSERT INTO game_genres (game_id, genre_id) VALUES ($1, $2)",
+        [gameId, genreId],
+      );
+    }
+  }
+
+  if (developers) {
+    const devArray = Array.isArray(developers) ? developers : [developers];
+    for (let devId of devArray) {
+      await pool.query(
+        "INSERT INTO game_developers (game_id, developer_id) VALUES ($1, $2)",
+        [gameId, devId],
+      );
+    }
+  }
 }
 
 export async function insertDeveloper(name) {
