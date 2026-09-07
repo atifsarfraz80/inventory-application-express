@@ -24,6 +24,7 @@
 
         <form class="developer-form" action="<%= isEditing ? `/developers/edit/${id}` : '/developers/new' %>" method="POST">
           <div class="form-group">
+            <input type="hidden" name="returnTo" value="<%= typeof returnTo !== 'undefined' ? returnTo : '' %>">
             <label for="name" class="form-label">Developer Name</label>
             <input
               type="text"

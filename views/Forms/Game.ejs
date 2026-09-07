@@ -22,7 +22,7 @@
           </div>
         <% } %>
 
-        <form class="game-form" action="<%= isEditing ? `/games/edit/${id}` : '/games/new' %>" method="POST">
+        <form id="game-form" class="game-form" action="<%= isEditing ? `/games/edit/${id}` : '/games/new' %>" method="POST">
           <div class="form-group">
             <label for="title" class="form-label">Game Title</label>
             <input
@@ -64,8 +64,12 @@
             ><%= formData?.description || '' %></textarea>
           </div>
 
+          <!-- Genres Section -->
           <div class="form-group">
-            <span class="form-label">Genres</span>
+            <div class="label-row">
+              <span class="form-label">Genres</span>
+              <button type="button" class="btn-text" onclick="document.getElementById('genre-modal').showModal()">+ New Genre</button>
+            </div>
             <div class="checkbox-grid">
               <% genres.forEach(genre => { %>
                 <label class="checkbox-label">
@@ -81,8 +85,12 @@
             </div>
           </div>
 
+          <!-- Developers Section -->
           <div class="form-group">
-            <span class="form-label">Developers</span>
+            <div class="label-row">
+              <span class="form-label">Developers</span>
+              <button type="button" class="btn-text" onclick="document.getElementById('dev-modal').showModal()">+ New Developer</button>
+            </div>
             <div class="checkbox-grid">
               <% developers.forEach(dev => { %>
                 <label class="checkbox-label">
@@ -104,5 +112,31 @@
         </form>
       </div>
     </main>
+
+    <!-- Quick Add Genre Dialog -->
+    <dialog id="genre-modal" class="app-modal">
+      <form action="/genres/new" method="POST" class="modal-form">
+        <input type="hidden" name="returnTo" value="game">
+        <h3 class="modal-title">Create New Genre</h3>
+        <input type="text" name="name" class="form-input" placeholder="e.g. Stealth" required autofocus />
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('genre-modal').close()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save & Use</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Quick Add Developer Dialog -->
+    <dialog id="dev-modal" class="app-modal">
+      <form action="/developers/new" method="POST" class="modal-form">
+        <input type="hidden" name="returnTo" value="game">
+        <h3 class="modal-title">Create New Developer</h3>
+        <input type="text" name="name" class="form-input" placeholder="e.g. Naughty Dog" required autofocus />
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('dev-modal').close()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save & Use</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

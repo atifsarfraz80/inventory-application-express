@@ -21,7 +21,12 @@ const validateGenre = [
 genreRouter.get("/genres", genreController);
 
 genreRouter.get("/genres/new", (req, res) => {
-  res.render("Forms/Genre", { errors: [], formData: {}, isEditing: false });
+  res.render("Forms/Genre", {
+    errors: [],
+    formData: {},
+    isEditing: false,
+    returnTo: req.query.returnTo || null,
+  });
 });
 
 genreRouter.post("/genres/new", validateGenre, async (req, res, next) => {
@@ -35,6 +40,9 @@ genreRouter.post("/genres/new", validateGenre, async (req, res, next) => {
   }
   try {
     await insertGenre(req.body.name);
+    if (req.body.returnTo === "game") {
+      return res.redirect("/games/new");
+    }
     res.redirect("/genres");
   } catch (err) {
     next(err);

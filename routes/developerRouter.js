@@ -21,7 +21,12 @@ const validateDeveloper = [
 developerRouter.get("/developers", developerController);
 
 developerRouter.get("/developers/new", (req, res) => {
-  res.render("Forms/Developer", { errors: [], formData: {}, isEditing: false });
+  res.render("Forms/Developer", {
+    errors: [],
+    formData: {},
+    isEditing: false,
+    returnTo: req.query.returnTo || null,
+  });
 });
 
 developerRouter.post(
@@ -38,6 +43,9 @@ developerRouter.post(
     }
     try {
       await insertDeveloper(req.body.name);
+      if (req.body.returnTo === "game") {
+        return res.redirect("/games/new");
+      }
       res.redirect("/developers");
     } catch (err) {
       next(err);
