@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a new Developer</title>
+    <title><%= isEditing ? 'Edit Developer' : 'Add Developer' %></title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
+    <%- include('../navbar') %>
     <main class="page-container">
       <div class="form-card">
-        <h1 class="form-title"><%= isEditing ? 'Edit Genre' : 'Add New Genre' %></h1>
+        <h1 class="form-title"><%= isEditing ? 'Edit Developer' : 'Add New Developer' %></h1>
 
         <% if (errors && errors.length > 0) { %>
           <div class="error-box">
@@ -22,23 +23,22 @@
         <% } %>
 
         <form class="developer-form" action="<%= isEditing ? `/developers/edit/${id}` : '/developers/new' %>" method="POST">
-  <div class="form-group">
-    <label for="name" class="form-label">Developer Name</label>
-    <input
-      type="text"
-      name="name"
-      id="name"
-      class="form-input"
-      value="<%= isEditing ? name : '' %>"
-      placeholder="e.g. Rockstar Games"
-      required
-    />
-  </div>
-  <button type="submit" class="btn btn-primary btn-block">
-    <%= isEditing ? 'Update Developer' : 'Add Developer' %>
-  </button>
-</form>
-
+          <div class="form-group">
+            <label for="name" class="form-label">Developer Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-input"
+              value="<%= formData?.name || '' %>"
+              placeholder="e.g. Valve"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            <%= isEditing ? 'Update Developer' : 'Add Developer' %>
+          </button>
+        </form>
       </div>
     </main>
   </body>

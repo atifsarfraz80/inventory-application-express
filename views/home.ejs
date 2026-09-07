@@ -3,21 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Info Application</title>
+    <title>Game Inventory</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <%- include('navbar') %>
-    <main class="page-container hero-section">
-      <h1 class="page-title"><%= title %></h1>
-      <p class="hero-description">
-        Welcome! Read info about genres,developers and game with the privelege
-        to create your own.
-      </p>
-      <div class="hero-actions">
-        <a href="/genres" class="btn btn-secondary">View Genres</a>
-        <a href="/developers" class="btn btn-primary">View Developers</a>
-        <a href="/games" class="btn btn-primary">View Games</a>
+    <main class="page-container">
+      <div class="hero-wrapper">
+        <div class="hero-tag">Catalog System</div>
+        <h1 class="hero-title">Manage Games, <span>Genres & Studios</span></h1>
+        <p class="hero-desc">
+          Browse, track, and curate your video game collection. Add custom
+          entries, associate multi-developer studios, and categorize titles
+          across multiple genres.
+        </p>
+        <div class="hero-actions">
+          <a href="/games" class="btn btn-primary">Browse Games</a>
+          <a href="/genres" class="btn btn-secondary">Explore Genres</a>
+          <a href="/developers" class="btn btn-secondary">View Developers</a>
+        </div>
       </div>
     </main>
   </body>

@@ -3,33 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Games by developer</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <%- include('../navbar') %>
-    <main class="games-container">
-      <h1 class="page-title"><%= title %></h1>
-      <div class="all-games">
-        <%if(games.length>0) {%>
-        <ul class="games-list">
-            <%games.map((game)=> { %>
-                <li class="game-item">
-                    <div class="game-title"><%=game.title%></div>
-                    <div class="game-rating">Rating: <%=game.rating%></div>
-                    <div class="game-description"><%=game.description%></div>
-                </li>
-            <%})%>
-        </ul>
-        <%} else {%>
-            <p class="text">No games from this developer.</p>
-        <%}%>
+    <main class="page-container">
+      <div class="header-row">
+        <h1 class="page-title"><%= title %></h1>
       </div>
-      <div class="links">
-        <a href="/" class="btn btn-secondary">Home</a>
-        <a href="/developers" class="btn btn-primary">Back to Developers</a>
-        <a href="/genres" class="btn btn-primary">View Genres</a>
-        <a href="/games" class="btn btn-primary">View Games</a>
+
+      <div class="card-grid">
+        <% if (games && games.length > 0) { %>
+          <% games.forEach(game => { %>
+            <div class="item-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                <h2 class="card-title"><%= game.title %></h2>
+                <span class="rating-badge">★ <%= Number(game.rating).toFixed(1) %></span>
+              </div>
+              <p class="card-desc"><%= game.description %></p>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p class="empty-state">No games found for this developer.</p>
+        <% } %>
+      </div>
+
+      <div class="btn-group-bottom">
+        <a href="/developers" class="btn btn-secondary">← Back to Developers</a>
+        <a href="/games" class="btn btn-secondary">All Games</a>
       </div>
     </main>
   </body>

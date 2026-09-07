@@ -8,23 +8,33 @@
   </head>
   <body>
     <%- include('navbar') %>
-    <main class="developers-container">
-        <a href="/developers/new" class="create-btn">Add a Developer</a>
-      <h1 class="page-title"><%= title %></h1>
-      <div class="all-developers">
-        <ul class="developers-list">
-            <%developers.map((developer)=> { %>
-                <li class="developer-item"><%=developer.name%></li>
-                <a href="/developers/<%=developer.name%>/<%=developer.id%>" class="btn">Show Games</a>
-                <a href="/developers/edit/<%=developer.id%>">Edit This Developer</a>
-                <a href="/developers/delete/<%=developer.id%>">Delete This Developer</a>
-            <%})%>
-        </ul>
+    <main class="page-container">
+      <div class="header-row">
+        <h1 class="page-title">Developers</h1>
+        <a href="/developers/new" class="btn btn-primary">+ Add Developer</a>
       </div>
-      <div class="links">
+
+      <div class="card-grid">
+        <% if (developers && developers.length > 0) { %>
+          <% developers.forEach(dev => { %>
+            <div class="item-card">
+              <h2 class="card-title"><%= dev.name %></h2>
+              <div class="card-actions">
+                <a href="/developers/<%= encodeURIComponent(dev.name) %>/<%= dev.id %>" class="btn btn-sm btn-primary">Show Catalog</a>
+                <a href="/developers/edit/<%= dev.id %>" class="btn btn-sm btn-secondary">Edit</a>
+                <a href="/developers/delete/<%= dev.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this developer?')">Delete</a>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p class="empty-state">No developers registered yet.</p>
+        <% } %>
+      </div>
+
+      <div class="btn-group-bottom">
         <a href="/" class="btn btn-secondary">Back to Home</a>
-        <a href="/genres" class="btn btn-primary">View Genres</a>
-        <a href="/games" class="btn btn-primary">View Games</a>
+        <a href="/genres" class="btn btn-secondary">Genres</a>
+        <a href="/games" class="btn btn-secondary">Games</a>
       </div>
     </main>
   </body>

@@ -8,26 +8,36 @@
   </head>
   <body>
     <%- include('navbar') %>
-    <main class="games-container">
-    <a href="/games/new" class="create-btn">Add a Game</a>
-      <h1 class="page-title"><%= title %></h1>
-      <div class="all-games">
-        <ul class="games-list">
-            <%games.map((game)=> { %>
-                <li class="game-item">
-                    <div class="game-title"><%=game.title%></div>
-                    <div class="game-rating">Rating: <%=game.rating%></div>
-                    <div class="game-description"><%=game.description%></div>
-                </li>
-                <a href="/games/edit/<%=game.id%>">Edit This Game</a>
-                <a href="/games/delete/<%=game.id%>">Delete This Game</a>
-            <%})%>
-        </ul>
+    <main class="page-container">
+      <div class="header-row">
+        <h1 class="page-title"><%= title %></h1>
+        <a href="/games/new" class="btn btn-primary">+ Add Game</a>
       </div>
-      <div class="links">
-        <a href="/" class="btn btn-secondary">Back to Home</a>
-        <a href="/developers" class="btn btn-primary">View Developers</a>
-        <a href="/genres" class="btn btn-primary">View Genres</a>
+
+      <div class="card-grid">
+        <% if (games && games.length > 0) { %>
+          <% games.forEach(game => { %>
+            <div class="item-card">
+              <div class="card-header">
+                <h3><%= game.title %></h3>
+                <span class="badge">⭐ <%= Number(game.rating).toFixed(1) %></span>
+              </div>
+              <p class="card-text"><%= game.description %></p>
+              
+              <div class="meta-section">
+                <div><strong>Genres:</strong> <span class="meta-tags"><%= game.genres %></span></div>
+                <div><strong>Developers:</strong> <span class="meta-tags"><%= game.developers %></span></div>
+              </div>
+
+              <div class="card-actions">
+                <a href="/games/edit/<%= game.id %>" class="btn btn-small btn-secondary">Edit</a>
+                <a href="/games/delete/<%= game.id %>" class="btn btn-small btn-danger" onclick="return confirm('Are you sure you want to delete this game?')">Delete</a>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p class="empty-state">No games found in the inventory.</p>
+        <% } %>
       </div>
     </main>
   </body>
